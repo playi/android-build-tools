@@ -57,4 +57,10 @@ task versionCheck(type: DefaultTask) {
   }
 }
 
-
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      repository(url: "file://$buildDir/repo")
+    }
+  }
+}
