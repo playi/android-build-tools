@@ -20,7 +20,7 @@ task updateBuildConfig (type: DefaultTask) {
 		versionProps.store(versionPropsFile.newWriter(), null)
 	}
 
-	println 'New Version is ' + versionProps['VERSION_MAJOR'] + '.' + versionProps['VERSION_MINOR'] + '.' + versionProps['VERSION_PATCH'] + '.' + versionProps['VERSION_BUILD']
+	logger.info 'New Version is ' + versionProps['VERSION_MAJOR'] + '.' + versionProps['VERSION_MINOR'] + '.' + versionProps['VERSION_PATCH'] + '.' + versionProps['VERSION_BUILD']
 }
 
 def getLatestCommitHash() {
