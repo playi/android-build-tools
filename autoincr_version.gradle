@@ -1,0 +1,28 @@
+task updateBuildConfig (type: DefaultTask) {
+	def latestCommit = getLatestCommitHash()
+
+	def Properties versionProps = new Properties()
+	def versionPropsFile = file('version.properties')
+	if(versionPropsFile.exists()){
+	    versionProps.load(new FileInputStream(versionPropsFile))
+    } else {
+    	versionProps['VERSION_MAJOR'] = "1"
+    	versionProps['VERSION_MINOR'] = "0"
+    	versionProps['VERSION_PATCH'] = "0"
+    	versionProps['VERSION_BUILD'] = "1"
+    	versionProps['COMMIT'] = ""
+    }
+
+    if (latestCommit != versionProps['COMMIT']){
+		def code = versionProps['VERSION_BUILD'].toInteger() + 1
+		versionProps['VERSION_BUILD'] = code.toString()
+		versionProps['COMMIT'] = latestCommit
+		versionProps.store(versionPropsFile.newWriter(), null)
+	}
+
+	println 'New Version is ' + versionProps['VERSION_MAJOR'] + '.' + versionProps['VERSION_MINOR'] + '.' + versionProps['VERSION_PATCH'] + '.' + versionProps['VERSION_BUILD']
+}
+
+def getLatestCommitHash() {
+  return "git rev-parse --verify HEAD".execute().text
+}
