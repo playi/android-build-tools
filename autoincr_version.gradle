@@ -10,6 +10,7 @@ task updateBuildConfig (type: DefaultTask) {
     	versionProps['VERSION_MINOR'] = "0"
     	versionProps['VERSION_PATCH'] = "0"
     	versionProps['VERSION_BUILD'] = "1"
+    	versionProps['VERSION'] = "1.0.0.1"
     	versionProps['COMMIT'] = ""
     }
 
@@ -17,10 +18,11 @@ task updateBuildConfig (type: DefaultTask) {
 		def code = versionProps['VERSION_BUILD'].toInteger() + 1
 		versionProps['VERSION_BUILD'] = code.toString()
 		versionProps['COMMIT'] = latestCommit
+		versionProps['VERSION'] = versionProps['VERSION_MAJOR'] + '.' + versionProps['VERSION_MINOR'] + '.' + versionProps['VERSION_PATCH'] + '.' + versionProps['VERSION_BUILD']
 		versionProps.store(versionPropsFile.newWriter(), null)
 	}
 
-	logger.info 'New Version is ' + versionProps['VERSION_MAJOR'] + '.' + versionProps['VERSION_MINOR'] + '.' + versionProps['VERSION_PATCH'] + '.' + versionProps['VERSION_BUILD']
+	logger.info 'New Version is ' + versionProps['VERSION']
 }
 
 def getLatestCommitHash() {
