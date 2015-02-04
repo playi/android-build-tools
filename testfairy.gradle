@@ -1,0 +1,20 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    maven { url 'https://www.testfairy.com/maven' }
+  }
+  dependencies {
+    classpath 'com.testfairy.plugins.gradle:testfairy:1.+'
+  }
+}
+
+// Add the following to your `android` block in your project
+// like:
+// android {
+//   .
+//   .
+//   .
+//   testfairyConfig {
+//      apiKey W2_TEST_FAIRY_KEY_GOES_HERE
+//   }
+
