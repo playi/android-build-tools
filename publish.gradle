@@ -15,11 +15,11 @@ import com.monochromeroad.gradle.plugin.aws.s3.S3Sync
 
 
 def isReleaseBuild() {
-  return !version.contains("SNAPSHOT")
+  return getWorkingBranch() == 'release'
 }
 
 def isSnapshotBuild() {
-  return !isReleaseBuild()
+  return getWorkingBranch() == 'master'
 }
 
 task publishArtifacts(type: S3Sync) {
