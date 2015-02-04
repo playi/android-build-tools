@@ -1,7 +1,6 @@
 buildscript {
   repositories {
     mavenCentral()
-    maven { url 'https://www.testfairy.com/maven' }
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:1.0.0-rc4'
