@@ -10,7 +10,9 @@ buildscript {
   }
 }
 
+apply plugin: 'com.github.dcendents.android-maven'
 import com.monochromeroad.gradle.plugin.aws.s3.S3Sync
+
 
 def isReleaseBuild() {
   return !version.contains("SNAPSHOT")
