@@ -18,7 +18,15 @@ def isReleaseBuild() {
   return getWorkingBranch() == 'release'
 }
 
-def isSnapshotBuild() {
+def isSnapshotVersion() {
+  return version.toUpperCase().contains("SNAPSHOT");
+}
+
+def isReleaseVersion() {
+   return !isSnapshotVersion();
+}
+
+def isSnapshotBuild(){
   return getWorkingBranch() == 'master'
 }
 
@@ -51,9 +59,9 @@ task versionCheck(type: DefaultTask) {
     def buildType = isReleaseBuild() ? "RELEASE" : "SNAPSHOT"
     logger.info("Current branch: $currentBranch")
     logger.info("build type: $buildType")
-    if( ["release","production"].contains(currentBranch) && isSnapshotBuild() ) {
+    if( isReleaseBuild()  && isSnapshotVersion() ) {
       throw new GradleException("I think you're trying to perform a SNAPSHOT build but branch '$currentBranch' looks like a release/production branch. Make sure you've updated the 'version' field for this build.")
-    } else if (isReleaseBuild()) {
+    } else if (isSnapshotBuild() && isReleaseVersion()) {
       throw new GradleException("I think you're trying to peform a RELEASE build but branch '$currentBranch' looks like a SNAPSHOT branch. Make sure that 'version' looks something like: 1.0-SNAPSHOT")
     }
   }
